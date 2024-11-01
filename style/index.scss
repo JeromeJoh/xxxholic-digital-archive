@@ -1,0 +1,45 @@
+:root {
+  --color-primary: #ff6b6b;
+  --color-secondary: #ff9f1a;
+  --color-tertiary: #1dd1a1;
+  --color-quaternary: #2ed573;
+}
+
+// *,
+// *::before,
+// *::after {
+//   border: solid 1px lime;
+// }
+
+body {
+  header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1000;
+
+    .site-title {
+      text-decoration: none;
+      font-size: 2rem;
+      color: inherit;
+      user-select: none;
+
+      h1 {
+        padding: 4rem 0;
+        text-align: center;
+        em {
+          color: coral;
+        }
+      }
+    }
+  }
+
+  main {
+    section {
+      height: 100vh;
+      border: solid 1px red;
+    }
+  }
+}
