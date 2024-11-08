@@ -27,31 +27,87 @@
     </div>
     <nav>
       <a href="">
-        <li>Part 1</li>
+        <li>Home</li>
       </a>
       <a href="">
-        <li>Part 2</li>
+        <li>Characters</li>
       </a>
       <a href="">
-        <li>Part 3</li>
+        <li>Episodes</li>
+      </a>
+      <a href="">
+        <li>Poster</li>
       </a>
 
     </nav>
   </header>
   <aside>
     <div class="frame">
-
+      <div class="key">
+        <div>
+          <object data="assets/svg/butterfly.svg" type="image/svg+xml" width="160">
+            Your browser does not support SVG
+          </object>
+          <span></span>
+        </div>
+        <button>
+          <nav class="wheel">
+            <p>Explore</p>
+            <p><span>Intro</p>
+            <p>M e n u</p>
+          </nav>
+        </button>
+      </div>
+      <div class="background">
+        <div class="left-side">
+          <div></div>
+        </div>
+        <div class="right-side">
+          <div></div>
+        </div>
+      </div>
+      <div class="decoration">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   </aside>
-  <main>
-    <section>1</section>
-    <section>2</section>
+  <main class="slider">
+    <section>
+      <div class="stage">
+        <div class="figure">
+          <img src="./assets/images/tx.jpg" alt="">
+        </div>
+        <div class="caption">
+          <p>Watanuki Kimihiro is a schoolboy cursed with the ability to sense and see spirits.</p>
+          <p>One day, as Watanuki is being chased by them, his visions are dispelled as he touches the fence of a
+            strange store.</p>
+          <p>Inside, he finds Yūko Ichihara, who claims their meeting was a matter of hitsuzen (inevitability). </p>
+          <p>When Watanuki finds that he can wish for Yūko to rid of his ability to see spirits, she promises to grant
+            his wish in exchange for working part-time as her store to pay the price. It is through completing many
+            house chores and helping Yūko with her work that Watanuki begins to meet many individuals, human and spirit
+            alike.</p>
+          <p>Occasionally Watanuki's rival, Shizuka Dōmeki, and his love interest, Himawari Kunogi, join him in his work
+            as per Yūko's request; the three become increasingly close despite Watanuki's annoyance with Dōmeki.</p>
+        </div>
+      </div>
+    </section>
+    <section class="sec-2">
+      <div class="stage">
+        <div class="content">
+          <div class="reel-l"></div>
+          <div class="pic-l"></div>
+          <div class="pic-r"></div>
+          <div class="reel-r"> </div>
+        </div>
+        <button class="btn">Click</button>
+      </div>
+    </section>
     <section>3</section>
     <section>4</section>
   </main>
-  <aside>
-
-  </aside>
   <footer>
     <p>Copyright 2024 &copy; Jerome Joh. All Right Reserved.</p>
 
@@ -68,6 +124,17 @@
       <a href="https://jeromejoh.github.io/">About Me</a>
     </nav>
   </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+    integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script type="module" src="index.js"></script>
 </body>
 
 </html>
