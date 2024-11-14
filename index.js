@@ -80,6 +80,10 @@ reelTween
     right: 0,
     duration: 1,
   }, '<')
+  .to('main', {
+    backgroundColor: '#fa8647',
+    duration: 1
+  }, '<')
   .to('.pic-l', {
     width: '50%',
     duration: 1,
@@ -93,7 +97,7 @@ reelTween
   })
   .to('.pointer-group', {
     opacity: 1
-  })
+  }, '<')
 
 
 
