@@ -128,9 +128,14 @@ gsap.set(paragraphs[0], {
 
 let lineIndex = 0, characterIndex = 0
 
-const audios = [
-  new Audio('./assets/audios/watanuki.wav'),
-]
+const audios = {
+  0: new Audio('./assets/audios/watanuki.wav'),
+  4: new Audio('./assets/audios/yuko.wav'),
+  10: new Audio('./assets/audios/domeki.wav'),
+  11: new Audio('./assets/audios/rei.wav'),
+}
+
+
 
 
 
@@ -138,14 +143,24 @@ const audios = [
 document.querySelector('.next').addEventListener('click', () => {
 
   if (lineIndex === paragraphs.length) {
-    gsap.to('.next', {
-      opacity: 0
-    })
     return
   }
 
+  if (lineIndex === paragraphs.length - 1) {
+    gsap.to('.next', {
+      opacity: 0
+    })
+  }
+
+  if (audios[lineIndex]) {
+    audios[lineIndex].play()
+    gsap.to('.c-' + (characterIndex + 1), {
+      backgroundColor: '#ddd'
+    })
+    characterIndex++
+  }
+
   if (lineIndex === 0) {
-    audios[characterIndex++].play()
 
     gsap.to('main', {
       backgroundColor: '#eee'
@@ -165,10 +180,6 @@ document.querySelector('.next').addEventListener('click', () => {
 
     gsap.to(paragraphs[lineIndex++], {
       opacity: 1
-    })
-
-    gsap.to('.c-1', {
-      backgroundColor: '#ddd'
     })
 
     return
