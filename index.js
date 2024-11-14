@@ -1,31 +1,17 @@
 // smooth scroll
-// const lenis = new Lenis();
+// const lenis = new Lenis()
 
 // function raf(time) {
-//   lenis.raf(time);
-//   requestAnimationFrame(raf);
+//   lenis.raf(time)
+//   requestAnimationFrame(raf)
 // }
 
-// requestAnimationFrame(raf);
+// requestAnimationFrame(raf)
 
 
 // scroll animation
 // gsap.registerPlugin(ScrollTrigger);
 
-// const slider = document.querySelector('.slider');
-// const sections = gsap.utils.toArray('.slider section');
-
-// const scrollTween = gsap.to(sections, {
-//   xPercent: -100 * (sections.length - 1),
-//   ease: 'none',
-//   scrollTrigger: {
-//     trigger: slider,
-//     pin: true,
-//     scrub: 1,
-//     snap: 1 / (sections.length - 1),
-//     end: () => `+=${slider.offsetWidth}`
-//   }
-// });
 
 
 
@@ -73,6 +59,8 @@ key.addEventListener('click', () => {
     tween.reverse()
     flag = false
   }
+
+  document.querySelector('aside').style.pointerEvents = 'none'
 })
 
 const reelTween = gsap.timeline({
@@ -100,21 +88,18 @@ reelTween
     width: '50%',
     duration: 1,
   }, '<')
+  .to('.unfold', {
+    opacity: 0
+  })
+  .to('.pointer-group', {
+    opacity: 1
+  })
 
 
 
-// Testing Code
-let generalFlag = false
 
-document.querySelector('.btn').addEventListener('click', () => {
-
-  if (!generalFlag) {
-    reelTween.play()
-    generalFlag = true
-  } else {
-    reelTween.reverse()
-    generalFlag = false
-  }
+document.querySelector('.unfold').addEventListener('click', () => {
+  reelTween.play()
 })
 
 
