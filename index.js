@@ -63,7 +63,7 @@ tween
     opacity: 1
   })
 
-let flag = false;
+let flag = false
 
 key.addEventListener('click', () => {
   if (!flag) {
@@ -104,7 +104,7 @@ reelTween
 
 
 // Testing Code
-let generalFlag = false;
+let generalFlag = false
 
 document.querySelector('.btn').addEventListener('click', () => {
 
@@ -116,3 +116,76 @@ document.querySelector('.btn').addEventListener('click', () => {
     generalFlag = false
   }
 })
+
+
+
+// Intro Page Animation
+
+const paragraphs = gsap.utils.toArray('.caption .wrapper p')
+gsap.set(paragraphs[0], {
+  opacity: 0
+})
+
+let lineIndex = 0, characterIndex = 0
+
+const audios = [
+  new Audio('./assets/audios/watanuki.wav'),
+]
+
+
+
+
+document.querySelector('.next').addEventListener('click', () => {
+
+  if (lineIndex === paragraphs.length) {
+    gsap.to('.next', {
+      opacity: 0
+    })
+    return
+  }
+
+  if (lineIndex === 0) {
+    audios[characterIndex++].play()
+
+    gsap.to('main', {
+      backgroundColor: '#eee'
+    })
+
+    gsap.to('.next', {
+      opacity: 0.5
+    })
+
+    gsap.to('.decor-l', {
+      left: 0
+    })
+
+    gsap.to('.decor-r', {
+      right: 0
+    })
+
+    gsap.to(paragraphs[lineIndex++], {
+      opacity: 1
+    })
+
+    gsap.to('.c-1', {
+      backgroundColor: '#ddd'
+    })
+
+    return
+  }
+
+
+  const line = new SplitType(paragraphs[lineIndex])
+
+  gsap.to('.wrapper', {
+    y: -(lineIndex * 3) + 'rem'
+  })
+
+  gsap.from(line.chars, {
+    opacity: 0,
+    stagger: 0.01,
+  })
+
+  lineIndex++
+})
+
