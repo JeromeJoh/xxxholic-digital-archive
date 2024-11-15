@@ -63,48 +63,7 @@ key.addEventListener('click', () => {
   document.querySelector('aside').style.pointerEvents = 'none'
 })
 
-const reelTween = gsap.timeline({
-  ease: 'power1.inOut',
-  paused: true
-})
 
-reelTween
-  .from('.content', {
-    rotate: 90
-  })
-  .to('.reel-l', {
-    left: 0,
-    duration: 1,
-  }, 0.5)
-  .to('.reel-r', {
-    right: 0,
-    duration: 1,
-  }, '<')
-  .to('main', {
-    backgroundColor: '#fa8647',
-    duration: 1
-  }, '<')
-  .to('.pic-l', {
-    width: '50%',
-    duration: 1,
-  }, '<')
-  .to('.pic-r', {
-    width: '50%',
-    duration: 1,
-  }, '<')
-  .to('.unfold', {
-    opacity: 0
-  })
-  .to('.pointer-group', {
-    opacity: 1
-  }, '<')
-
-
-
-
-document.querySelector('.unfold').addEventListener('click', () => {
-  reelTween.play()
-})
 
 
 
@@ -123,11 +82,6 @@ const audios = {
   10: new Audio('./assets/audios/domeki.wav'),
   11: new Audio('./assets/audios/rei.wav'),
 }
-
-
-
-
-
 
 document.querySelector('.next').addEventListener('click', () => {
 
@@ -174,7 +128,6 @@ document.querySelector('.next').addEventListener('click', () => {
     return
   }
 
-
   const line = new SplitType(paragraphs[lineIndex])
 
   gsap.to('.wrapper', {
@@ -189,3 +142,126 @@ document.querySelector('.next').addEventListener('click', () => {
   lineIndex++
 })
 
+
+
+
+// Characters Page
+
+const reelTween = gsap.timeline({
+  ease: 'power1.inOut',
+  paused: true
+})
+
+reelTween
+  .from('.content', {
+    rotate: 90
+  })
+  .to('.reel-l', {
+    left: 0,
+    duration: 1,
+  }, 0.5)
+  .to('.reel-r', {
+    right: 0,
+    duration: 1,
+  }, '<')
+  .to('main', {
+    backgroundColor: '#fa8647',
+    duration: 1
+  }, '<')
+  .to('.pic-l', {
+    width: '50%',
+    duration: 1,
+  }, '<')
+  .to('.pic-r', {
+    width: '50%',
+    duration: 1,
+  }, '<')
+  .to('.unfold', {
+    opacity: 0
+  })
+  .to('.pointer-group', {
+    opacity: 1
+  }, '<')
+
+document.querySelector('.unfold').addEventListener('click', () => {
+  reelTween.play()
+})
+
+
+
+
+// Episodes Page
+
+const episodeInfo = [
+  {
+    name: 'xxxHolic',
+    date: '2006',
+    otherName: '',
+    episodeNumber: 24,
+    link: ''
+  },
+  {
+    name: 'xxxHolic: Sequel',
+    date: '2008',
+    otherName: '继',
+    episodeNumber: 13,
+    link: ''
+  },
+  {
+    name: 'xxxHOLiC Spring Dreams Chronicle',
+    otherName: '春夢記',
+    date: '2009',
+    episodeNumber: 13,
+    link: ''
+  },
+  {
+    name: 'xxxHolic Cage',
+    otherName: '籠',
+    date: '2010',
+    episodeNumber: 13,
+    link: ''
+  },
+]
+
+const prevEpisode = document.querySelector('.prev-episode')
+const nextEpisode = document.querySelector('.next-episode')
+const episodeName = document.querySelector('.episode-name')
+
+episodeName.innerHTML = `
+  <p>${episodeInfo[0].name}${episodeInfo[0].otherName ? ` (${episodeInfo[0].otherName})` : ''}</p>
+  <p>- ${episodeInfo[0].date} -</p>
+`
+
+let currentEpisode = 0
+
+document.querySelector('.activate').addEventListener('click', () => {
+  document.querySelector('.deck svg').classList.add('running')
+
+  gsap.to('.activate', {
+    opacity: 0
+  })
+
+  gsap.to(prevEpisode, {
+    left: '10rem'
+  })
+
+  gsap.to(nextEpisode, {
+    right: '10rem'
+  })
+
+  gsap.to('main', {
+    backgroundColor: '#eee'
+  })
+
+  gsap.to('.deck svg .name', {
+    opacity: 1
+  })
+
+  gsap.to('.episode-decor .watch', {
+    y: 0
+  })
+
+  gsap.to('.episode-decor .episode-name', {
+    y: 0
+  })
+})

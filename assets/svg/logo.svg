@@ -8,19 +8,7 @@
         stroke-miterlimit: 10;
         fill-rule: evenodd;
         paint-order: stroke fill markers;
-        animation: breath alternate 2s infinite;
-        transition: all ease-in-out 0.2s;
       }
-
-      /* @keyframes breath {
-        0% {
-          stroke-width: 0;
-        }
-
-        100% {
-          stroke-width: 6px;
-        }
-      } */
     </style>
   </defs>
   <g>
