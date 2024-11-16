@@ -2,7 +2,7 @@
 
 :root {
   --color-bg: #deb8f7;
-  --color-front: rgb(119, 0, 255);
+  --color-front: #dbd98c;
   --color-white: #eee;
   --color-black: #0d0d0d;
 }
@@ -14,6 +14,36 @@
   scrollbar-width: thin;
   scroll-behavior: smooth;
   scrollbar-color: #eee transparent;
+}
+
+.attention-seeker {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10rem;
+    height: 10rem;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: solid 4px var(--color-black);
+    animation: ripple 2s 1.5s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8rem;
+    height: 8rem;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: solid 4px var(--color-black);
+    animation: ripple 2s ease-in-out infinite;
+    opacity: 0;
+  }
 }
 
 .tip-button {
@@ -35,6 +65,7 @@
     border-radius: 50%;
     border: solid 4px var(--color-black);
     animation: ripple 2s 1.5s ease-in-out infinite;
+    opacity: 0;
   }
 
   &::after {
@@ -48,11 +79,13 @@
     border-radius: 50%;
     border: solid 4px var(--color-black);
     animation: ripple 2s 0s ease-in-out infinite;
+    opacity: 0;
   }
 
   @keyframes ripple {
     0% {
       transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
     }
     100% {
       transform: translate(-50%, -50%) scale(1);
@@ -696,8 +729,6 @@ body {
         display: grid;
         place-items: center;
 
-        @include blatantBorder;
-
         .activate {
           @include positionCenter;
           z-index: 100;
@@ -708,8 +739,6 @@ body {
           width: 30rem;
           aspect-ratio: 15 / 8;
           display: flex;
-
-          @include blatantBorder;
 
           svg {
             width: 80%;
@@ -722,7 +751,7 @@ body {
               stroke-width: 4px;
               stroke-dasharray: 3070;
               stroke-dashoffset: 3070;
-              animation: textAnimation 3s ease-in-out 1 forwards;
+              animation: textAnimation 2s ease-in-out 1 forwards;
               animation-play-state: paused;
             }
 
@@ -788,6 +817,7 @@ body {
 
           .prev-episode,
           .next-episode {
+            position: relative;
             width: 9rem;
             aspect-ratio: 3 / 2;
             background-image: url(/assets/svg/motif.svg);
@@ -796,6 +826,10 @@ body {
             background-repeat: no-repeat;
             background-position: center;
             border: none;
+            cursor: pointer;
+            pointer-events: none;
+
+            // @include attentionSeeker;
           }
 
           .prev-episode {
@@ -826,10 +860,11 @@ body {
             user-select: none;
             text-transform: uppercase;
             font-weight: 700;
+            transition: all ease-in-out 0.3s;
 
             &:hover {
               text-decoration: underline;
-              color: var(--color-front);
+              color: var(--color-bg);
             }
           }
 
@@ -843,6 +878,12 @@ body {
             font-family: 'Forum', 'LXGW WenKai TC';
             text-align: center;
             white-space: nowrap;
+
+            & p:nth-child(1) {
+              span {
+                font-size: 0.6em;
+              }
+            }
 
             & p:nth-child(2) {
               font-size: 0.6em;

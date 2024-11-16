@@ -238,7 +238,7 @@ const episodeName = document.querySelector('.episode-name')
 const watchButton = document.querySelector('.watch')
 
 episodeName.innerHTML = `
-  <p>${episodeInfo[0].name}${episodeInfo[0].otherName ? ` (${episodeInfo[0].otherName})` : ''}</p>
+  <p>${episodeInfo[0].name}<span>${episodeInfo[0].otherName ? ` (${episodeInfo[0].otherName})` : ''}</span></p>
   <p>- ${episodeInfo[0].date} -</p>
 `
 
@@ -275,8 +275,12 @@ document.querySelector('.activate').addEventListener('click', () => {
     y: 0
   })
 
-  prevEpisode.querySelector('div').classList.add('tip-button')
-  nextEpisode.querySelector('div').classList.add('tip-button')
+  setTimeout(() => {
+    prevEpisode.classList.add('attention-seeker')
+    nextEpisode.classList.add('attention-seeker')
+    prevEpisode.style.pointerEvents = 'auto'
+    nextEpisode.style.pointerEvents = 'auto'
+  }, 1500)
 })
 
 const tweens = Array.from({ length: 4 }, () => gsap.timeline({
@@ -325,7 +329,7 @@ nextEpisode.addEventListener('click', () => {
   currentEpisode++
 
   episodeName.innerHTML = `
-    <p>${episodeInfo[currentEpisode].name}${episodeInfo[currentEpisode].otherName ? ` (${episodeInfo[currentEpisode].otherName})` : ''}</p>
+    <p>${episodeInfo[currentEpisode].name}<span>${episodeInfo[currentEpisode].otherName ? ` (${episodeInfo[currentEpisode].otherName})` : ''}</span></p>
     <p>- ${episodeInfo[currentEpisode].date} -</p>
 `
 })
@@ -342,7 +346,7 @@ prevEpisode.addEventListener('click', () => {
   currentEpisode--
 
   episodeName.innerHTML = `
-  <p>${episodeInfo[currentEpisode].name}${episodeInfo[currentEpisode].otherName ? ` (${episodeInfo[currentEpisode].otherName})` : ''}</p>
+  <p>${episodeInfo[currentEpisode].name}<span>${episodeInfo[currentEpisode].otherName ? ` (${episodeInfo[currentEpisode].otherName})` : ''}</span></p>
   <p>- ${episodeInfo[currentEpisode].date} -</p>
 `
 })
