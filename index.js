@@ -198,34 +198,44 @@ const episodeInfo = [
     date: '2006',
     otherName: '',
     episodeNumber: 24,
-    link: ''
+    link: 'https://www.bilibili.com/bangumi/play/ep247620/?share_source=copy_web',
   },
+
   {
     name: 'xxxHolic: Sequel',
     date: '2008',
     otherName: '继',
     episodeNumber: 13,
-    link: ''
+    link: 'https://www.bilibili.com/bangumi/play/ep247644/?share_source=copy_web'
   },
+
   {
     name: 'xxxHOLiC Spring Dreams Chronicle',
     otherName: '春夢記',
     date: '2009',
     episodeNumber: 13,
-    link: ''
+    link: 'https://www.bilibili.com/bangumi/play/ep84771/?share_source=copy_web'
   },
+
   {
     name: 'xxxHolic Cage',
     otherName: '籠',
     date: '2010',
-    episodeNumber: 13,
-    link: ''
+    link: 'https://www.bilibili.com/bangumi/play/ep84773/?share_source=copy_web'
+  },
+
+  {
+    name: 'xxxHOLiC: Manatsu no Yoru no Yume',
+    otherName: '真夏ノ夜ノ夢',
+    date: '2005-08-20',
+    link: 'https://www.bilibili.com/bangumi/play/ep84775/?share_source=copy_web'
   },
 ]
 
 const prevEpisode = document.querySelector('.prev-episode')
 const nextEpisode = document.querySelector('.next-episode')
 const episodeName = document.querySelector('.episode-name')
+const watchButton = document.querySelector('.watch')
 
 episodeName.innerHTML = `
   <p>${episodeInfo[0].name}${episodeInfo[0].otherName ? ` (${episodeInfo[0].otherName})` : ''}</p>
@@ -264,4 +274,79 @@ document.querySelector('.activate').addEventListener('click', () => {
   gsap.to('.episode-decor .episode-name', {
     y: 0
   })
+
+  prevEpisode.querySelector('div').classList.add('tip-button')
+  nextEpisode.querySelector('div').classList.add('tip-button')
+})
+
+const tweens = Array.from({ length: 4 }, () => gsap.timeline({
+  paused: true
+}))
+
+tweens[0]
+  .to('.svg-group>img:nth-child(1)', {
+    rotate: 60,
+    opacity: 1,
+    ease: 'power1.out'
+  })
+tweens[1]
+  .to('.svg-group>img:nth-child(2)', {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    ease: 'power1.out'
+  })
+
+tweens[2]
+  .to('.svg-group>img:nth-child(3)', {
+    rotateY: 360,
+    opacity: 1,
+    ease: 'power1.out'
+  })
+
+tweens[3]
+  .to('.svg-group>img:nth-child(4)', {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    ease: 'power1.out'
+  })
+
+nextEpisode.addEventListener('click', () => {
+  if (currentEpisode === tweens.length) return
+
+  if (currentEpisode === 0) {
+    tweens[currentEpisode].play()
+  } else {
+    tweens[currentEpisode - 1].reverse()
+    tweens[currentEpisode].play()
+  }
+
+  currentEpisode++
+
+  episodeName.innerHTML = `
+    <p>${episodeInfo[currentEpisode].name}${episodeInfo[currentEpisode].otherName ? ` (${episodeInfo[currentEpisode].otherName})` : ''}</p>
+    <p>- ${episodeInfo[currentEpisode].date} -</p>
+`
+})
+
+prevEpisode.addEventListener('click', () => {
+  if (currentEpisode === 0) return
+
+  if (currentEpisode === 1) {
+    tweens[currentEpisode - 1].reverse()
+  } else {
+    tweens[currentEpisode - 1].reverse()
+    tweens[currentEpisode - 2].play()
+  }
+  currentEpisode--
+
+  episodeName.innerHTML = `
+  <p>${episodeInfo[currentEpisode].name}${episodeInfo[currentEpisode].otherName ? ` (${episodeInfo[currentEpisode].otherName})` : ''}</p>
+  <p>- ${episodeInfo[currentEpisode].date} -</p>
+`
+})
+
+watchButton.addEventListener('click', () => {
+  window.open(episodeInfo[currentEpisode].link, '_blank')
 })
