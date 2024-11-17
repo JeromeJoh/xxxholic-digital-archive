@@ -16,6 +16,11 @@
   scrollbar-color: #eee transparent;
 }
 
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 .attention-seeker {
   &::before {
     content: '';
@@ -899,6 +904,8 @@ body {
       place-items: center;
 
       .stage {
+        width: 100%;
+        height: 100%;
       }
     }
   }
