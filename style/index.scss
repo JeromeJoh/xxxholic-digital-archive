@@ -480,7 +480,6 @@ body {
       display: grid;
       place-items: center;
       padding: 8rem;
-      border: solid 1px lime;
       scroll-snap-align: start;
     }
 
@@ -833,8 +832,6 @@ body {
             border: none;
             cursor: pointer;
             pointer-events: none;
-
-            // @include attentionSeeker;
           }
 
           .prev-episode {
@@ -904,8 +901,20 @@ body {
       place-items: center;
 
       .stage {
+        position: relative;
         width: 100%;
         height: 100%;
+        @include blatantBorder;
+        display: flex;
+
+        img {
+          width: 60%;
+          margin: auto;
+        }
+
+        .activate {
+          @include positionCenter;
+        }
       }
     }
   }

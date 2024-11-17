@@ -244,7 +244,7 @@ episodeName.innerHTML = `
 
 let currentEpisode = 0
 
-document.querySelector('.activate').addEventListener('click', () => {
+document.querySelector('#episodes .activate').addEventListener('click', () => {
   document.querySelector('.deck svg').classList.add('running')
 
   gsap.to('.activate', {
@@ -353,4 +353,16 @@ prevEpisode.addEventListener('click', () => {
 
 watchButton.addEventListener('click', () => {
   window.open(episodeInfo[currentEpisode].link, '_blank')
+})
+
+
+
+
+
+// Fanart Page
+
+document.querySelector('#fanart .activate').addEventListener('click', () => {
+  gsap.to('main', {
+    backgroundColor: '#313131'
+  })
 })
