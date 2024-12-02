@@ -917,5 +917,81 @@ body {
         }
       }
     }
+
+    & > section:nth-child(5) {
+      display: grid;
+      place-items: center;
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        @include blatantBorder;
+        display: flex;
+      }
+    }
+
+    & > section:nth-child(6) {
+      display: grid;
+      place-items: center;
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        @include blatantBorder;
+        display: flex;
+
+        .caption {
+          display: block;
+          flex: 1;
+          font-size: 1.5rem;
+          line-height: 3rem;
+          font-family: 'Forum', 'LXGW WenKai TC';
+          text-align: right;
+          padding: 4rem;
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          justify-content: center;
+
+          a:hover {
+            text-decoration: underline;
+          }
+
+          & > p:first-child::first-letter,
+          & > p:last-child::first-letter {
+            font-size: 2rem;
+          }
+
+          em {
+            font-family: 'Grand Hotel', sans-serif;
+            font-size: 2rem;
+          }
+        }
+
+        figure {
+          position: relative;
+          width: 40%;
+          display: flex;
+          user-select: none;
+
+          img {
+            width: 20rem;
+            margin-top: auto;
+            margin-right: auto;
+          }
+
+          canvas {
+            position: absolute;
+            width: 120%;
+            height: 100%;
+            right: 0;
+            top: 0;
+            @include blatantBorder;
+          }
+        }
+      }
+    }
   }
 }

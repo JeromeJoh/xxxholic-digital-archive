@@ -366,3 +366,13 @@ document.querySelector('#fanart .activate').addEventListener('click', () => {
     backgroundColor: '#313131'
   })
 })
+
+
+
+
+// Game Page
+
+
+
+
+// Outro Page
