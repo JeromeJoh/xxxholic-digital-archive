@@ -982,13 +982,12 @@ body {
             margin-right: auto;
           }
 
-          canvas {
+          #blowing-hair {
             position: absolute;
             width: 120%;
             height: 100%;
             right: 0;
             top: 0;
-            @include blatantBorder;
           }
         }
       }
