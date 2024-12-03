@@ -984,10 +984,12 @@ body {
 
           #blowing-hair {
             position: absolute;
-            width: 120%;
+            width: 150%;
             height: 100%;
             right: 0;
             top: 0;
+            pointer-events: none;
+            @include blatantBorder;
           }
         }
       }

@@ -376,3 +376,503 @@ document.querySelector('#fanart .activate').addEventListener('click', () => {
 
 
 // Outro Page
+const { Engine, Render, Runner, Bodies, Body, Composite, Composites, Events, Constraint, Common } = Matter
+
+const engine = Engine.create()
+
+const el = document.querySelector('#blowing-hair')
+
+const render = Render.create({
+  element: el,
+  engine: engine,
+  options: {
+    width: el.offsetWidth,
+    height: el.offsetHeight,
+    wireframes: false,
+    background: 'transparent',
+  },
+})
+
+
+function createCloth(xx, yy, columns, rows, columnGap = 0, rowGap = 0, crossBrace = false, particleRadius = 1, particleOptions, constraintOptions) {
+
+  const group = Body.nextGroup(true);
+
+  particleOptions = Common.extend({
+    inertia: Infinity,
+    friction: 0.00001,
+    collisionFilter: { group: group },
+    render: {
+      fillStyle: 'black',
+      visible: rows === 1 ? false : true,
+    }
+  }, particleOptions);
+
+  constraintOptions = Common.extend({
+    stiffness: 1,
+    render: {
+      type: 'line',
+      anchors: false,
+      strokeStyle: 'black',
+      lineWidth: 1.5,
+      visible: true
+    }
+  }
+    , constraintOptions);
+
+  const cloth = Composites.stack(xx, yy, columns, rows, columnGap, rowGap, function (x, y) {
+    return Bodies.circle(x, y, particleRadius, particleOptions);
+  });
+
+  Composites.mesh(cloth, columns, rows, crossBrace, constraintOptions);
+
+  return cloth;
+};
+
+function createHair({
+  top = 0,
+  left = 0,
+  width = 1,
+  length = 10,
+}) {
+  return createCloth(
+    left * el.offsetWidth,
+    top * el.offsetHeight,
+    length,
+    width
+  )
+}
+
+const hairGroup1 = [
+  createHair({
+    top: 0.12,
+    left: 0.63,
+    width: 1,
+    length: 72
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.63,
+    width: 1,
+    length: 68
+  }),
+]
+
+const hairGroup2 = [
+  createHair({
+    top: 0.13,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
+    top: 0.135,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
+    top: 0.14,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
+    top: 0.14,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
+    top: 0.14,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
+    top: 0.145,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+]
+
+const hairGroup3 = [
+  createHair({
+    top: 0.145,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(35, 40, true)
+  }),
+  createHair({
+    top: 0.15,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(35, 40, true)
+  }),
+  createHair({
+    top: 0.155,
+    left: 0.64,
+    width: 2,
+    length: getRandomValue(35, 40, true)
+  }),
+  createHair({
+    top: 0.16,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(35, 40, true)
+  }),
+  createHair({
+    top: 0.165,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(35, 40, true)
+  }),
+]
+
+const hairGroup4 = [
+  createHair({
+    top: 0.17,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(10, 12, true)
+  }),
+  createHair({
+    top: 0.171,
+    left: 0.641,
+    width: 1,
+    length: getRandomValue(10, 12, true)
+  }),
+  createHair({
+    top: 0.172,
+    left: 0.642,
+    width: 1,
+    length: getRandomValue(10, 12, true)
+  }),
+  createHair({
+    top: 0.173,
+    left: 0.643,
+    width: 1,
+    length: getRandomValue(10, 12, true)
+  }),
+  createHair({
+    top: 0.174,
+    left: 0.644,
+    width: 1,
+    length: getRandomValue(10, 12, true)
+  }),
+]
+
+const hairGroup5 = [
+  createHair({
+    top: 0.18,
+    left: 0.645,
+    width: 1,
+    length: getRandomValue(50, 55, true)
+  }),
+  createHair({
+    top: 0.181,
+    left: 0.647,
+    width: 2,
+    length: getRandomValue(50, 50, true)
+  }),
+  createHair({
+    top: 0.182,
+    left: 0.649,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.183,
+    left: 0.651,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.184,
+    left: 0.653,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.185,
+    left: 0.655,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.19,
+    left: 0.656,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+]
+
+const hairGroup6 = [
+  createHair({
+    top: 0.3,
+    left: 0.646,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.31,
+    left: 0.646,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.32,
+    left: 0.646,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+  createHair({
+    top: 0.33,
+    left: 0.646,
+    width: 1,
+    length: getRandomValue(60, 65, true)
+  }),
+]
+
+const hairGroup7 = [
+  createHair({
+    top: 0.12,
+    left: 0.66,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.665,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.67,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.675,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.68,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.685,
+    width: 4,
+    length: getRandomValue(5, 6, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.69,
+    width: 4,
+    length: getRandomValue(5, 6, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.695,
+    width: 4,
+    length: getRandomValue(6, 6.2, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.7,
+    width: 4,
+    length: getRandomValue(5, 6, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.705,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.71,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.715,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+  createHair({
+    top: 0.12,
+    left: 0.72,
+    width: 4,
+    length: getRandomValue(5, 7, true)
+  }),
+]
+
+const hairGroup8 = [
+  createHair({
+    top: 0.125,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(12, 15, true)
+  }),
+  createHair({
+    top: 0.13,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(12, 15, true)
+  }),
+  createHair({
+    top: 0.135,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(12, 15, true)
+  }),
+]
+
+const hairGroup9 = [
+  createHair({
+    top: 0.14,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(20, 23, true)
+  }),
+  createHair({
+    top: 0.145,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(20, 23, true)
+  }),
+  createHair({
+    top: 0.15,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(20, 23, true)
+  }),
+  createHair({
+    top: 0.155,
+    left: 0.72,
+    width: 1,
+    length: getRandomValue(20, 23, true)
+  }),
+]
+
+const hairs = [
+  ...hairGroup1,
+  ...hairGroup2,
+  ...hairGroup3,
+  ...hairGroup4,
+  ...hairGroup5,
+  ...hairGroup6,
+  ...hairGroup7,
+  ...hairGroup8,
+  ...hairGroup9,
+];
+
+for (var i = 0; i < hairs.length; i++) {
+  hairs[i].bodies[0].isStatic = true;
+  if (hairs[i].bodies[1]) {
+    hairs[i].bodies[1].isStatic = true;
+  }
+
+}
+
+
+
+Composite.add(engine.world, hairs);
+
+
+function simulateWindSpeed() {
+  // 设置风速变化的范围
+  const minWindSpeed = 0;
+  const maxWindSpeed = 1.5;
+
+  // 生成随机风速
+  const randomWindSpeed = Math.random() * (maxWindSpeed - minWindSpeed) + minWindSpeed;
+
+  // 添加随机扰动，模拟风速的波动
+  const noise = Math.random() * (maxWindSpeed - 1) - (maxWindSpeed - 1) / 2; // 扰动范围为-0.25到0.25
+  const windSpeed = -(randomWindSpeed + noise);
+
+  return windSpeed;
+}
+
+function getRandomValue(min, max, isInteger = false) {
+  if (!isInteger) return Math.random() * (max - min) + min;
+
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+
+
+Events.on(engine, 'beforeUpdate', function (e) {
+  engine.gravity.x = simulateWindSpeed();
+  engine.gravity.y = getRandomValue(-0.6, 1);
+
+  hairGroup2.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.0001, 0.0005) })
+    })
+  })
+
+  hairGroup2[hairGroup2.length - 1].bodies.forEach(body => {
+    Body.applyForce(body, body.position, { x: 0, y: -body.mass * 0.0004 })
+  })
+
+  hairGroup3.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.0003, 0.0009) })
+    })
+  })
+
+  hairGroup4.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.0003, 0.0008) })
+    })
+  })
+
+  hairGroup5.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.0005, 0.001) })
+    })
+  })
+
+  hairGroup6.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.0005, 0.0009) })
+    })
+  })
+
+  hairGroup7.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.005, 0.005) })
+    })
+  })
+
+  hairGroup8.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.003, 0.004) })
+    })
+  })
+
+  hairGroup9.forEach(hair => {
+    hair.bodies.forEach(body => {
+      Body.applyForce(body, body.position, { x: 0, y: body.mass * getRandomValue(0.003, 0.004) })
+    })
+  })
+})
+
+Render.run(render)
+
+const runner = Runner.create();
+Runner.run(runner, engine);
