@@ -381,13 +381,15 @@ const { Engine, Render, Runner, Bodies, Body, Composite, Composites, Events, Con
 const engine = Engine.create()
 
 const el = document.querySelector('#blowing-hair')
+const worldWidth = el.offsetWidth
+const worldHeight = el.offsetHeight
 
 const render = Render.create({
   element: el,
   engine: engine,
   options: {
-    width: el.offsetWidth,
-    height: el.offsetHeight,
+    width: worldWidth,
+    height: worldWidth,
     wireframes: false,
     background: 'transparent',
   },
@@ -436,8 +438,8 @@ function createHair({
   length = 10,
 }) {
   return createCloth(
-    left * el.offsetWidth,
-    top * el.offsetHeight,
+    left * worldWidth,
+    top * worldHeight,
     length,
     width
   )
