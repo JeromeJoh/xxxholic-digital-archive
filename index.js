@@ -370,7 +370,23 @@ document.querySelector('#fanart .activate').addEventListener('click', () => {
 
 
 
-// Game Page
+  // Game Page
+
+  ; (function () {
+    const board = document.querySelector('#game .board')
+  }());
+
+document.querySelector('#game .activate').addEventListener('click', () => {
+  // gsap.to('#game>img', {
+  //   opacity: 0,
+  //   scale: 1.5,
+  //   ease: 'power1.out'
+  // })
+
+  gsap.to('#game .activate', {
+    opacity: 0,
+  })
+})
 
 
 
