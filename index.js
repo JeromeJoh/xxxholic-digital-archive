@@ -460,6 +460,18 @@ const hairGroup1 = [
 
 const hairGroup2 = [
   createHair({
+    top: 0.12,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
+    top: 0.125,
+    left: 0.64,
+    width: 1,
+    length: getRandomValue(65, 75, true)
+  }),
+  createHair({
     top: 0.13,
     left: 0.64,
     width: 1,
@@ -467,18 +479,6 @@ const hairGroup2 = [
   }),
   createHair({
     top: 0.135,
-    left: 0.64,
-    width: 1,
-    length: getRandomValue(65, 75, true)
-  }),
-  createHair({
-    top: 0.14,
-    left: 0.64,
-    width: 1,
-    length: getRandomValue(65, 75, true)
-  }),
-  createHair({
-    top: 0.14,
     left: 0.64,
     width: 1,
     length: getRandomValue(65, 75, true)
@@ -554,13 +554,7 @@ const hairGroup4 = [
     left: 0.643,
     width: 1,
     length: getRandomValue(10, 12, true)
-  }),
-  createHair({
-    top: 0.174,
-    left: 0.644,
-    width: 1,
-    length: getRandomValue(10, 12, true)
-  }),
+  })
 ]
 
 const hairGroup5 = [
@@ -572,37 +566,37 @@ const hairGroup5 = [
   }),
   createHair({
     top: 0.181,
-    left: 0.647,
+    left: 0.645,
     width: 2,
     length: getRandomValue(50, 50, true)
   }),
   createHair({
     top: 0.182,
-    left: 0.649,
+    left: 0.645,
     width: 1,
     length: getRandomValue(60, 65, true)
   }),
   createHair({
     top: 0.183,
-    left: 0.651,
+    left: 0.645,
     width: 1,
     length: getRandomValue(60, 65, true)
   }),
   createHair({
     top: 0.184,
-    left: 0.653,
+    left: 0.645,
     width: 1,
     length: getRandomValue(60, 65, true)
   }),
   createHair({
     top: 0.185,
-    left: 0.655,
+    left: 0.645,
     width: 1,
     length: getRandomValue(60, 65, true)
   }),
   createHair({
     top: 0.19,
-    left: 0.656,
+    left: 0.645,
     width: 1,
     length: getRandomValue(60, 65, true)
   }),
@@ -710,8 +704,8 @@ const hairGroup7 = [
   }),
   createHair({
     top: 0.12,
-    left: 0.72,
-    width: 4,
+    left: 0.718,
+    width: 1,
     length: getRandomValue(5, 7, true)
   }),
 ]
@@ -742,25 +736,25 @@ const hairGroup9 = [
     top: 0.14,
     left: 0.72,
     width: 1,
-    length: getRandomValue(20, 23, true)
+    length: getRandomValue(30, 40, true)
   }),
   createHair({
     top: 0.145,
     left: 0.72,
     width: 1,
-    length: getRandomValue(20, 23, true)
+    length: getRandomValue(30, 40, true)
   }),
   createHair({
     top: 0.15,
     left: 0.72,
     width: 1,
-    length: getRandomValue(20, 23, true)
+    length: getRandomValue(30, 40, true)
   }),
   createHair({
     top: 0.155,
     left: 0.72,
     width: 1,
-    length: getRandomValue(20, 23, true)
+    length: getRandomValue(30, 40, true)
   }),
 ]
 
