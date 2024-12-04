@@ -370,21 +370,129 @@ document.querySelector('#fanart .activate').addEventListener('click', () => {
 
 
 
-  // Game Page
+// Game Page
+const image = document.querySelector('#game>img')
 
-  ; (function () {
-    const board = document.querySelector('#game .board')
-  }());
+const board = document.querySelector('#game .board')
+const rows = 3
+const cols = 4
+const emptyPos = {
+  row: rows - 1,
+  col: cols - 1
+}
+const pieceArray = []
+
+function createPuzzle() {
+  const pieceWidth = board.offsetWidth / cols
+  const pieceHeight = board.offsetHeight / rows
+
+  function generateRandomOrderArray(length) {
+    const arr = Array.from({ length }, (_, i) => i);
+
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    return arr;
+  }
+
+  const randomArray = generateRandomOrderArray(rows * cols - 1)
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (i === rows - 1 && j === cols - 1) continue
+
+      const randomIndex = randomArray.shift()
+      const randomPos = {
+        row: Math.floor(randomIndex / cols),
+        col: randomIndex % cols
+      }
+
+      const piece = document.createElement('div')
+      piece.classList.add('piece')
+      piece.style.width = pieceWidth + 'px'
+      piece.style.height = pieceHeight + 'px'
+      piece.style.backgroundImage = `url(${image.src})`
+      piece.style.backgroundSize = `${board.offsetWidth}px ${board.offsetHeight}px`
+      piece.style.backgroundPosition = `-${j * pieceWidth}px -${i * pieceHeight}px`
+      piece.dataset.row = i
+      piece.dataset.col = j
+      piece.dataset.viewRow = randomPos.row
+      piece.dataset.viewCol = randomPos.col
+      piece.style.left = randomPos.col * pieceWidth + 'px'
+      piece.style.top = randomPos.row * pieceHeight + 'px'
+      piece.addEventListener('click', movePiece, false)
+      pieceArray.push(piece)
+    }
+  }
+
+  board.append(...pieceArray)
+}
+
+function movePiece(event) {
+  const piece = event.target
+  const row = parseInt(piece.dataset.viewRow)
+  const col = parseInt(piece.dataset.viewCol)
+
+  console.log(row, col)
+  console.log(emptyPos.row, emptyPos.col)
+
+
+  if (Math.abs(row - emptyPos.row) + Math.abs(col - emptyPos.col) === 1) {
+    piece.dataset.viewRow = emptyPos.row
+    piece.dataset.viewCol = emptyPos.col
+
+
+    // console.log(col, row)
+
+    gsap.to(piece, {
+      left: piece.offsetWidth * emptyPos.col + 'px',
+      top: piece.offsetHeight * emptyPos.row + 'px'
+    })
+
+    emptyPos.row = row
+    emptyPos.col = col
+
+    // if (isCompleted()) {
+    //   alert('done!')
+    // }
+  }
+}
+
+function isCompleted() {
+  return pieceArray.every(piece => {
+    const row = parseInt(piece.dataset.row)
+    const col = parseInt(piece.dataset.col)
+    const viewRow = parseInt(piece.dataset.viewRow)
+    const viewCol = parseInt(piece.dataset.viewCol)
+    return row === viewRow && col === viewCol
+  })
+}
+
+const initBoard = () => {
+  createPuzzle()
+}
+
+initBoard()
+
+
+
+
+
 
 document.querySelector('#game .activate').addEventListener('click', () => {
-  // gsap.to('#game>img', {
-  //   opacity: 0,
-  //   scale: 1.5,
-  //   ease: 'power1.out'
-  // })
+  gsap.to('#game>img', {
+    opacity: 0,
+    scale: 1.5,
+    ease: 'power1.out'
+  })
 
   gsap.to('#game .activate', {
     opacity: 0,
+    onComplete: () => {
+      document.querySelector('#game .activate').remove()
+    }
   })
 })
 
@@ -798,7 +906,7 @@ for (var i = 0; i < hairs.length; i++) {
 
 
 
-Composite.add(engine.world, hairs);
+// Composite.add(engine.world, hairs);
 
 
 function simulateWindSpeed() {

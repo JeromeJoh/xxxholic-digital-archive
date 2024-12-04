@@ -930,11 +930,22 @@ body {
         @include blatantBorder;
         display: flex;
 
+        .activate {
+          @include positionCenter;
+        }
+
         .board {
+          position: relative;
           margin: auto;
           width: 80%;
           aspect-ratio: 2560 / 1440;
           @include blatantBorder;
+
+          .piece {
+            position: absolute;
+            @include blatantBorder;
+            cursor: pointer;
+          }
         }
       }
 
