@@ -21,6 +21,12 @@ body {
   scroll-behavior: smooth;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .attention-seeker {
   &::before {
     content: '';
@@ -927,24 +933,68 @@ body {
         position: relative;
         width: 100%;
         height: 100%;
-        @include blatantBorder;
         display: flex;
 
         .activate {
           @include positionCenter;
+          @include attentionSeeker(white);
+          z-index: 1000;
         }
 
         .board {
           position: relative;
           margin: auto;
-          width: 80%;
+          width: 60%;
           aspect-ratio: 2560 / 1440;
-          @include blatantBorder;
+          opacity: 0;
+          border-radius: 2px;
+          box-sizing: content-box;
+
+          // overflow: hidden;
+
+          &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 4px;
+            border-radius: inherit;
+            box-sizing: inherit;
+          }
+
+          @keyframes animate {
+            0% {
+              transform: rotate(0deg);
+            }
+
+            100% {
+              // transform: rotate(360deg);
+            }
+          }
 
           .piece {
             position: absolute;
-            @include blatantBorder;
             cursor: pointer;
+            overflow: hidden;
+            box-sizing: border-box;
+            z-index: 100;
+            // box-shadow: inset 0 0 10px 1px var(--color-white);
+
+            &.lastone {
+              pointer-events: none;
+              opacity: 0;
+            }
+
+            &:hover {
+              filter: brightness(1.1);
+            }
+
+            &:active {
+              filter: brightness(0.9);
+            }
           }
         }
       }

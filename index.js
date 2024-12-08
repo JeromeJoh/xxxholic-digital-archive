@@ -375,7 +375,7 @@ const image = document.querySelector('#game>img')
 
 const board = document.querySelector('#game .board')
 const rows = 3
-const cols = 4
+const cols = 3
 const emptyPos = {
   row: rows - 1,
   col: cols - 1
@@ -397,11 +397,12 @@ function createPuzzle() {
     return arr;
   }
 
-  const randomArray = generateRandomOrderArray(rows * cols - 1)
+  let randomArray = generateRandomOrderArray(rows * cols - 1)
+  randomArray = [7, 6, 2, 0, 5, 1, 3, 4]
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      if (i === rows - 1 && j === cols - 1) continue
+      const piece = document.createElement('div')
 
       const randomIndex = randomArray.shift()
       const randomPos = {
@@ -409,7 +410,12 @@ function createPuzzle() {
         col: randomIndex % cols
       }
 
-      const piece = document.createElement('div')
+      if (i === rows - 1 && j === cols - 1) {
+        randomPos.row = rows - 1
+        randomPos.col = cols - 1
+        piece.classList.add('lastone')
+      }
+
       piece.classList.add('piece')
       piece.style.width = pieceWidth + 'px'
       piece.style.height = pieceHeight + 'px'
@@ -431,6 +437,8 @@ function createPuzzle() {
 }
 
 function movePiece(event) {
+  if (isCompleted()) return
+
   const piece = event.target
   const row = parseInt(piece.dataset.viewRow)
   const col = parseInt(piece.dataset.viewCol)
@@ -443,20 +451,25 @@ function movePiece(event) {
     piece.dataset.viewRow = emptyPos.row
     piece.dataset.viewCol = emptyPos.col
 
-
-    // console.log(col, row)
-
     gsap.to(piece, {
       left: piece.offsetWidth * emptyPos.col + 'px',
-      top: piece.offsetHeight * emptyPos.row + 'px'
+      top: piece.offsetHeight * emptyPos.row + 'px',
+      ease: 'power1.out'
     })
 
     emptyPos.row = row
     emptyPos.col = col
 
-    // if (isCompleted()) {
-    //   alert('done!')
-    // }
+    if (isCompleted()) {
+      gsap.to("#game .lastone", {
+        opacity: 1,
+      })
+
+      pieceArray.forEach(piece => {
+        piece.style.cursor = 'default'
+        piece.style.pointerEvents = 'none'
+      })
+    }
   }
 }
 
@@ -488,11 +501,20 @@ document.querySelector('#game .activate').addEventListener('click', () => {
     ease: 'power1.out'
   })
 
+  gsap.to('#game .board', {
+    opacity: 1,
+    ease: 'power1.out'
+  })
+
   gsap.to('#game .activate', {
     opacity: 0,
     onComplete: () => {
       document.querySelector('#game .activate').remove()
     }
+  })
+
+  gsap.to('main', {
+    background: 'linear-gradient(to top, #8791ce, white)'
   })
 })
 

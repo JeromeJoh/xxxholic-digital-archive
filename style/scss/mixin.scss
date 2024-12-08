@@ -20,7 +20,10 @@
   border: solid 2px lime;
 }
 
-@mixin attentionSeeker {
+@mixin attentionSeeker($color) {
+  width: 3rem;
+  height: 3rem;
+
   &::before {
     content: '';
     position: absolute;
@@ -30,7 +33,7 @@
     height: 10rem;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: solid 4px var(--color-black);
+    border: solid 4px $color;
     animation: ripple 2s 1.5s ease-in-out infinite;
   }
 
@@ -43,7 +46,7 @@
     height: 8rem;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: solid 4px var(--color-black);
+    border: solid 4px $color;
     animation: ripple 2s 0s ease-in-out infinite;
   }
 }
