@@ -913,6 +913,54 @@ body {
         @include blatantBorder;
         display: flex;
 
+        .shell {
+          width: 90%;
+          height: 100%;
+          display: flex;
+          align-items: flex-end;
+          gap: 10px;
+          position: absolute;
+          left: 5%;
+          bottom: 0;
+        }
+
+        .box {
+          height: 85%;
+          flex: 1;
+          overflow: hidden;
+          transition: 0.5s;
+          border-radius: 2px;
+          border: 1px solid #fff;
+          background-color: #fff;
+          margin-bottom: 30px;
+          cursor: pointer;
+        }
+
+        .box > img {
+          width: 200%;
+          height: 93%;
+          object-fit: cover;
+          transition: 0.5s;
+        }
+
+        .box > span {
+          font: 500 15px Ubuntu;
+          text-align: center;
+          height: 7%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .box:hover {
+          flex-basis: 40%;
+        }
+
+        .box:hover > img {
+          width: 100%;
+          height: 100%;
+        }
+
         img {
           width: 60%;
           margin: auto;
