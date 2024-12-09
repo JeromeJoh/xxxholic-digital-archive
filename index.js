@@ -225,7 +225,7 @@ const episodeInfo = [
   },
 
   {
-    name: 'xxxHOLiC: Manatsu no Yoru no Yume',
+    name: "xxxHolic: A Midsummer Night's Dream",
     otherName: '真夏ノ夜ノ夢',
     date: '2005-08-20',
     link: 'https://www.bilibili.com/bangumi/play/ep84775/?share_source=copy_web'
@@ -361,12 +361,23 @@ watchButton.addEventListener('click', () => {
 
 // Fanart Page
 
-document.querySelector('#fanart .activate').addEventListener('click', () => {
-  gsap.to('main', {
-    backgroundColor: '#313131'
-  })
+const cursor = document.querySelector('.cursor')
+const panel = document.querySelector('.shell')
+
+
+panel.addEventListener('mouseenter', () => {
+  cursor.classList.toggle('hidden')
 })
 
+panel.addEventListener('mouseleave', () => {
+  cursor.classList.toggle('hidden')
+})
+
+panel.addEventListener('mousemove', (e) => {
+  console.log(e.offsetX, e.offsetY)
+  cursor.style.left = e.layerX + 'px'
+  cursor.style.top = e.layerY + 'px'
+})
 
 
 

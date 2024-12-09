@@ -910,64 +910,80 @@ body {
         position: relative;
         width: 100%;
         height: 100%;
-        @include blatantBorder;
         display: flex;
 
         .shell {
+          position: relative;
           width: 90%;
           height: 100%;
           display: flex;
           align-items: flex-end;
-          gap: 10px;
+          gap: 0.5rem;
           position: absolute;
           left: 5%;
           bottom: 0;
-        }
 
-        .box {
-          height: 85%;
-          flex: 1;
-          overflow: hidden;
-          transition: 0.5s;
-          border-radius: 2px;
-          border: 1px solid #fff;
-          background-color: #fff;
-          margin-bottom: 30px;
-          cursor: pointer;
-        }
+          .cursor {
+            position: absolute;
+            width: 8rem;
+            height: 8rem;
+            border-radius: 50%;
+            background-color: white;
+            background-size: 100% 100%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-family: 'Forum', 'LXGW WenKai TC';
+            mix-blend-mode: plus-lighter;
+            font-weight: 700;
+            &.hidden {
+              opacity: 0;
+            }
+          }
 
-        .box > img {
-          width: 200%;
-          height: 93%;
-          object-fit: cover;
-          transition: 0.5s;
-        }
+          .box {
+            height: 100%;
+            flex: 1;
+            overflow: hidden;
+            transition: 0.5s;
+            border-radius: 2px;
+            border: 1px solid var(--color-black);
+            background-color: var(--color-black);
+            cursor: pointer;
 
-        .box > span {
-          font: 500 15px Ubuntu;
-          text-align: center;
-          height: 7%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+            & > img {
+              width: 200%;
+              height: 95%;
+              object-fit: cover;
+              transition: 0.5s;
+            }
 
-        .box:hover {
-          flex-basis: 40%;
-        }
+            & > span {
+              font: 500 1rem 'Darker Grotesque', sans-serif;
+              color: white;
+              text-align: center;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              white-space: nowrap;
+            }
 
-        .box:hover > img {
-          width: 100%;
-          height: 100%;
-        }
+            &:hover {
+              flex-basis: 80%;
 
-        img {
-          width: 60%;
-          margin: auto;
-        }
+              & > img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+          }
 
-        .activate {
-          @include positionCenter;
+          img {
+            width: 60%;
+            margin: auto;
+          }
         }
       }
     }
