@@ -379,6 +379,24 @@ panel.addEventListener('mousemove', (e) => {
   cursor.style.top = e.layerY + 'px'
 })
 
+document.querySelector('#fanart .activate').addEventListener('click', () => {
+  gsap.to('#fanart .door-l', {
+    x: '-100%',
+  })
+
+  gsap.to('#fanart .door-r', {
+    x: '100%',
+  })
+
+  gsap.to('#fanart .activate', {
+    opacity: 0,
+    onComplete: () => {
+      document.querySelector('#fanart .activate').remove()
+      document.querySelector('#fanart .door').remove()
+    }
+  })
+})
+
 
 
 // Game Page
