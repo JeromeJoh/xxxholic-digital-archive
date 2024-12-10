@@ -472,10 +472,6 @@ function movePiece(event) {
   const row = parseInt(piece.dataset.viewRow)
   const col = parseInt(piece.dataset.viewCol)
 
-  console.log(row, col)
-  console.log(emptyPos.row, emptyPos.col)
-
-
   if (Math.abs(row - emptyPos.row) + Math.abs(col - emptyPos.col) === 1) {
     piece.dataset.viewRow = emptyPos.row
     piece.dataset.viewCol = emptyPos.col
@@ -494,9 +490,17 @@ function movePiece(event) {
         opacity: 1,
       })
 
+      gsap.from("#game .bar", {
+        xPercent: 100,
+        opacity: 0,
+        stagger: 0.05
+      })
+
       pieceArray.forEach(piece => {
         piece.style.cursor = 'default'
         piece.style.pointerEvents = 'none'
+        piece.style.boxShadow = 'none'
+        piece.style.border = 'none'
       })
     }
   }
