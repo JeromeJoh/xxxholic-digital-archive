@@ -98,7 +98,7 @@ document.querySelector('.next').addEventListener('click', () => {
   if (audios[lineIndex]) {
     audios[lineIndex].play()
     gsap.to('.c-' + (characterIndex + 1), {
-      backgroundColor: '#ddd'
+      backgroundColor: '#fff'
     })
     characterIndex++
   }
