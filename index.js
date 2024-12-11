@@ -80,7 +80,7 @@ const audios = {
   0: new Audio('./assets/audios/watanuki.wav'),
   4: new Audio('./assets/audios/yuko.wav'),
   10: new Audio('./assets/audios/domeki.wav'),
-  11: new Audio('./assets/audios/rei.wav'),
+  11: new Audio('./assets/audios/kunogi.wav'),
 }
 
 document.querySelector('.next').addEventListener('click', () => {
@@ -105,8 +105,8 @@ document.querySelector('.next').addEventListener('click', () => {
 
   if (lineIndex === 0) {
 
-    gsap.to('main', {
-      backgroundColor: '#eee'
+    gsap.to('#premise', {
+      // background: 'transparent'
     })
 
     gsap.to('.next', {
@@ -154,7 +154,10 @@ const reelTween = gsap.timeline({
 
 reelTween
   .from('.content', {
-    rotate: 90
+    rotate: 90,
+    onComplete: () => {
+      document.querySelector('#characters .activate').remove()
+    }
   })
   .to('.reel-l', {
     left: 0,
@@ -164,10 +167,6 @@ reelTween
     right: 0,
     duration: 1,
   }, '<')
-  .to('main', {
-    backgroundColor: '#fa8647',
-    duration: 1
-  }, '<')
   .to('.pic-l', {
     width: '50%',
     duration: 1,
@@ -176,14 +175,11 @@ reelTween
     width: '50%',
     duration: 1,
   }, '<')
-  .to('.unfold', {
-    opacity: 0
-  })
   .to('.pointer-group', {
     opacity: 1
-  }, '<')
+  }, '>')
 
-document.querySelector('.unfold').addEventListener('click', () => {
+document.querySelector('#characters .activate').addEventListener('click', () => {
   reelTween.play()
 })
 
@@ -247,7 +243,7 @@ let currentEpisode = 0
 document.querySelector('#episodes .activate').addEventListener('click', () => {
   document.querySelector('.deck svg').classList.add('running')
 
-  gsap.to('.activate', {
+  gsap.to('#episodes .activate', {
     opacity: 0
   })
 
@@ -257,10 +253,6 @@ document.querySelector('#episodes .activate').addEventListener('click', () => {
 
   gsap.to(nextEpisode, {
     right: '10rem'
-  })
-
-  gsap.to('main', {
-    backgroundColor: '#eee'
   })
 
   gsap.to('.deck svg .name', {
@@ -365,8 +357,10 @@ const cursor = document.querySelector('.cursor')
 const panel = document.querySelector('.shell')
 
 
-panel.addEventListener('mouseenter', () => {
+panel.addEventListener('mouseenter', (e) => {
   cursor.classList.toggle('hidden')
+  cursor.style.left = e.layerX + 'px'
+  cursor.style.top = e.layerY + 'px'
 })
 
 panel.addEventListener('mouseleave', () => {
@@ -374,7 +368,6 @@ panel.addEventListener('mouseleave', () => {
 })
 
 panel.addEventListener('mousemove', (e) => {
-  console.log(e.offsetX, e.offsetY)
   cursor.style.left = e.layerX + 'px'
   cursor.style.top = e.layerY + 'px'
 })
@@ -382,6 +375,7 @@ panel.addEventListener('mousemove', (e) => {
 document.querySelector('#fanart .activate').addEventListener('click', () => {
   gsap.to('#fanart .door-l', {
     x: '-100%',
+    ease: 'power1.out'
   })
 
   gsap.to('#fanart .door-r', {
@@ -400,7 +394,7 @@ document.querySelector('#fanart .activate').addEventListener('click', () => {
 
 
 // Game Page
-const image = document.querySelector('#game>img')
+const image = document.querySelector('#game .hint-image')
 
 const board = document.querySelector('#game .board')
 const rows = 3
@@ -490,6 +484,14 @@ function movePiece(event) {
         opacity: 1,
       })
 
+      gsap.to("#game .hint-button", {
+        yPercent: 0
+      })
+
+      gsap.to("#game .hint-image", {
+        opacity: 1
+      })
+
       gsap.from("#game .bar", {
         xPercent: 100,
         opacity: 0,
@@ -528,17 +530,6 @@ initBoard()
 
 
 document.querySelector('#game .activate').addEventListener('click', () => {
-  gsap.to('#game>img', {
-    opacity: 0,
-    scale: 1.5,
-    ease: 'power1.out'
-  })
-
-  gsap.to('#game .board', {
-    opacity: 1,
-    ease: 'power1.out'
-  })
-
   gsap.to('#game .activate', {
     opacity: 0,
     onComplete: () => {
@@ -546,12 +537,28 @@ document.querySelector('#game .activate').addEventListener('click', () => {
     }
   })
 
-  gsap.to('main', {
-    background: 'linear-gradient(to top, #8791ce, white)'
+  gsap.to('#game .hint-image', {
+    opacity: 0,
+  })
+
+  gsap.to('#game .hint-button', {
+    yPercent: -120
   })
 })
 
+const hintButton = document.querySelector('#game .hint-button')
 
+hintButton.addEventListener('mousedown', () => {
+  gsap.to('#game .hint-image', {
+    opacity: 1,
+  })
+})
+
+hintButton.addEventListener('mouseup', () => {
+  gsap.to('#game .hint-image', {
+    opacity: 0,
+  })
+})
 
 
 // Outro Page
