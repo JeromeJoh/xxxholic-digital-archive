@@ -209,47 +209,31 @@ const barGroup = gsap.utils.toArray('.mask div')
 const characterName = document.querySelector('.brief h3')
 const brief = document.querySelector('.brief p')
 
+const barTween = gsap.timeline({
+  paused: true
+})
+
+barTween
+  .to('#characters .mask', {
+    opacity: 1
+  })
+  .to(barGroup, {
+    rotateY: 0
+  }, '<')
+  .to(buttonGroup, {
+    opacity: 0
+  })
 
 buttonGroup.forEach((button, index) => {
   button.addEventListener('click', () => {
-    gsap.to('#characters .mask', {
-      opacity: 1
-    })
-
-    function cutArray(arr, start, end) {
-      const target = arr.slice(start, end + 1)
-      const remain = arr.slice(0, start).concat(arr.slice(end + 1))
-
-      return [target, remain]
-    }
-
-    const [target, remain] = cutArray(barGroup, ...characters[index].range)
-
-    gsap.to(remain, {
-      rotateY: 0,
-    })
-
-    gsap.to(target, {
-      rotateY: 90,
-    })
-
+    barTween.play()
     characterName.textContent = characters[index].name
     brief.textContent = characters[index].brief
-
-    gsap.to(buttonGroup, {
-      opacity: 0
-    })
   })
 })
 
 document.querySelector('.brief .close').addEventListener('click', () => {
-  gsap.to('#characters .mask', {
-    opacity: 0
-  })
-
-  gsap.to(buttonGroup, {
-    opacity: 1
-  })
+  barTween.reverse()
 })
 
 
