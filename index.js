@@ -91,7 +91,10 @@ document.querySelector('.next').addEventListener('click', () => {
 
   if (lineIndex === paragraphs.length - 1) {
     gsap.to('.next', {
-      opacity: 0
+      opacity: 0,
+      onComplete: () => {
+        document.querySelector('.next').remove()
+      }
     })
   }
 
@@ -104,10 +107,6 @@ document.querySelector('.next').addEventListener('click', () => {
   }
 
   if (lineIndex === 0) {
-
-    gsap.to('#premise', {
-      // background: 'transparent'
-    })
 
     gsap.to('.next', {
       opacity: 0.5
@@ -146,6 +145,28 @@ document.querySelector('.next').addEventListener('click', () => {
 
 
 // Characters Page
+const characters = [
+  {
+    name: 'Shizuka Dōmeki',
+    brief: "Shizuka Dōmeki (百目鬼 静, Dōmeki Shizuka) is Watanuki's classmate and one-sided rival. He is part of the school's archery club and often participates in school competitions. He lives in a shrine owned by his late grandfather. He is calm, sarcastic, and has the ability to rid evil spirits and is immune to most curses; this is mostly due to his ancestry and his upbringing in his grandfather's temple.",
+    range: [1, 4]
+  },
+  {
+    name: 'Kimihiro Watanuki',
+    brief: "Kimihiro Watanuki (四月一日君尋, Watanuki Kimihiro) is the protagonist of xxxHOLiC. He is a typical high school student who lives on his own. He is down-to-earth and selfless, but also very irritable, especially when it comes to Yūko's lavish demands and Dōmeki's stoic attitude. Watanuki begins working for Yūko in exchange for the fulfillment of his wish to never see spirits again.",
+    range: [5, 8]
+  },
+  {
+    name: 'Himawari Kunogi',
+    brief: "Himawari Kunogi (九軒 ひまわり, Kunogi Himawari) is Watanuki's love interest. She is a kind and caring girl who is often passive to Watanuki's profession of love for her.",
+    range: [17, 20]
+  },
+  {
+    name: 'Yūko Ichihara',
+    brief: 'Yūko Ichihara (壱原 侑子, Ichihara Yūko) is a very powerful witch and owner of the wish shop, mostly known for her ability to send people to other dimensions and times (sometimes called "The Dimensional Witch"), and for her ability to grant any wish in exchange for an equal cost. Despite her seemingly immature and free-spirited attitude, Yūko is also sage-like and serious when the time calls for it.',
+    range: [21, 24]
+  }
+]
 
 const reelTween = gsap.timeline({
   ease: 'power1.inOut',
@@ -181,6 +202,54 @@ reelTween
 
 document.querySelector('#characters .activate').addEventListener('click', () => {
   reelTween.play()
+})
+
+const buttonGroup = document.querySelectorAll('.pointer-group button')
+const barGroup = gsap.utils.toArray('.mask div')
+const characterName = document.querySelector('.brief h3')
+const brief = document.querySelector('.brief p')
+
+
+buttonGroup.forEach((button, index) => {
+  button.addEventListener('click', () => {
+    gsap.to('#characters .mask', {
+      opacity: 1
+    })
+
+    function cutArray(arr, start, end) {
+      const target = arr.slice(start, end + 1)
+      const remain = arr.slice(0, start).concat(arr.slice(end + 1))
+
+      return [target, remain]
+    }
+
+    const [target, remain] = cutArray(barGroup, ...characters[index].range)
+
+    gsap.to(remain, {
+      rotateY: 0,
+    })
+
+    gsap.to(target, {
+      rotateY: 90,
+    })
+
+    characterName.textContent = characters[index].name
+    brief.textContent = characters[index].brief
+
+    gsap.to(buttonGroup, {
+      opacity: 0
+    })
+  })
+})
+
+document.querySelector('.brief .close').addEventListener('click', () => {
+  gsap.to('#characters .mask', {
+    opacity: 0
+  })
+
+  gsap.to(buttonGroup, {
+    opacity: 1
+  })
 })
 
 
