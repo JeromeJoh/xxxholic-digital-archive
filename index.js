@@ -423,6 +423,22 @@ watchButton.addEventListener('click', () => {
 const cursor = document.querySelector('.cursor')
 const panel = document.querySelector('.shell')
 
+const boxes = Array.from(panel.querySelectorAll('.box'))
+
+boxes.forEach((box) => {
+  box.addEventListener('mouseenter', () => {
+    gsap.to('#fanart', {
+      backgroundColor: box.dataset.color,
+    })
+  })
+
+  box.addEventListener('mouseleave', () => {
+    gsap.to('#fanart', {
+      backgroundColor: '#eee',
+    })
+  })
+})
+
 
 panel.addEventListener('mouseenter', (e) => {
   cursor.classList.toggle('hidden')
@@ -563,6 +579,10 @@ function movePiece(event) {
         xPercent: 100,
         opacity: 0,
         stagger: 0.05
+      })
+
+      gsap.to("#game .puzzle-result", {
+        yPercent: -120
       })
 
       pieceArray.forEach(piece => {
