@@ -43,11 +43,17 @@ tween
     y: '15rem'
   }, '<')
   .to('.wheel', {
-    y: '-1.5rem'
+    y: '-1.5rem',
   },)
   .to('.decoration', {
-    opacity: 1
-  })
+    opacity: 1,
+    onComplete: () => {
+      document.querySelector('#corner').classList.toggle('running')
+    },
+    onReverseComplete: () => {
+      document.querySelector('#corner').classList.toggle('running')
+    }
+  }, '<')
 
 let flag = false
 
@@ -84,6 +90,14 @@ const audios = {
 }
 
 document.querySelector('.next').addEventListener('click', () => {
+
+  if (lineIndex === paragraphs.length - 1) {
+    gsap.fromTo('.figure img', 1.5, {
+      backgroundColor: '#000',
+    }, {
+      backgroundColor: '#fff',
+    })
+  }
 
   if (lineIndex === paragraphs.length) {
     return

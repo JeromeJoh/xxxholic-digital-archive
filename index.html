@@ -18,6 +18,18 @@
 </head>
 
 <body>
+  <svg style="display: none;" id="template">
+    <defs>
+      <symbol id="corner" viewBox="0 0 1307.5482 1314.3197">
+        <path d="M 201.91489,210 H 20 V 20 h 190 v 190 z" />
+        <path d="M 611.91489,620 H 430 V 430 h 190 v 190 z" i />
+        <path d="M 24.05873,1259.9419 V 297.00829 H 298.02297 V 21.014683 l 959.39713,1.855272" />
+        <path d="m 706.94346,26.033558 2.86996,276.197562 h -277.4145 v -139.0937 h 594.45968 v 149.68992" />
+        <path d="m 27.264575,706.00895 271.210765,1.43498 V 434.79819 H 158.67158 l 1.42112,139.99193" />
+        <path d="M 37.309417,707.44395 H 162.72646 v 319.99995 h 138.61883" />
+      </symbol>
+    </defs>
+  </svg>
   <header>
     <div class="site-title">
       <object data="assets/svg/logo.svg" type="image/svg+xml" width="120">
@@ -69,10 +81,26 @@
         </div>
       </div>
       <div class="decoration">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div>
+          <svg>
+            <use xlink:href="#corner" x="0" y="0" />
+          </svg>
+        </div>
+        <div>
+          <svg>
+            <use xlink:href="#corner" x="0" y="0" />
+          </svg>
+        </div>
+        <div>
+          <svg>
+            <use xlink:href="#corner" x="0" y="0" />
+          </svg>
+        </div>
+        <div>
+          <svg>
+            <use xlink:href="#corner" x="0" y="0" />
+          </svg>
+        </div>
       </div>
     </div>
   </aside>
