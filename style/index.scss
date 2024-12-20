@@ -666,10 +666,42 @@ body {
           .reel-l {
             top: -7%;
             left: calc(50% - var(--reel-width) - 5px);
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 50%;
+              left: 8px;
+              z-index: 50;
+              transform: translateY(-50%);
+              width: 12px;
+              height: 90%;
+              background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.6),
+                transparent
+              );
+            }
           }
           .reel-r {
             top: -7%;
             right: calc(50% - var(--reel-width) - 5px);
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 50%;
+              right: 8px;
+              z-index: 50;
+              transform: translateY(-50%);
+              width: 12px;
+              height: 90%;
+              background: linear-gradient(
+                to left,
+                rgba(0, 0, 0, 0.6),
+                transparent
+              );
+            }
           }
         }
 
