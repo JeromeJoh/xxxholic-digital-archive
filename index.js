@@ -1,19 +1,3 @@
-// smooth scroll
-// const lenis = new Lenis()
-
-// function raf(time) {
-//   lenis.raf(time)
-//   requestAnimationFrame(raf)
-// }
-
-// requestAnimationFrame(raf)
-
-
-// scroll animation
-// gsap.registerPlugin(ScrollTrigger);
-
-
-
 
 const key = document.querySelector('.key button')
 
@@ -42,9 +26,6 @@ tween
   .to('.key button', {
     y: '15rem'
   }, '<')
-  .to('.wheel', {
-    y: '-1.5rem',
-  },)
   .to('.decoration', {
     opacity: 1,
     onComplete: () => {
@@ -59,9 +40,15 @@ let flag = false
 
 key.addEventListener('click', () => {
   if (!flag) {
+    gsap.to('.wheel', {
+      y: '-2rem',
+    },)
     tween.play()
     flag = true
   } else {
+    gsap.to('.wheel', {
+      y: 0,
+    },)
     tween.reverse()
     flag = false
   }
@@ -69,6 +56,18 @@ key.addEventListener('click', () => {
   document.querySelector('aside').style.pointerEvents = 'none'
 })
 
+key.addEventListener('mouseenter', () => {
+  flag && gsap.to('.wheel', {
+    y: '-4rem'
+  })
+})
+
+key.addEventListener('mouseleave', () => {
+
+  flag && gsap.to('.wheel', {
+    y: '-2rem'
+  })
+})
 
 
 
@@ -1145,3 +1144,19 @@ Render.run(render)
 
 const runner = Runner.create();
 Runner.run(runner, engine);
+
+
+
+
+
+// Scroll Menu Animation
+const main = document.querySelector('main')
+
+main.addEventListener('scroll', () => {
+  if (main.scrollTop % window.innerHeight) return
+
+  const index = main.scrollTop / window.innerHeight
+  gsap.to('.menu', {
+    x: index * -11.2 + 'rem'
+  })
+})
