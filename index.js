@@ -1160,3 +1160,24 @@ main.addEventListener('scroll', () => {
     x: index * -11.2 + 'rem'
   })
 })
+
+
+// Section Navigation
+const links = Array.from(document.querySelectorAll('header nav a'))
+
+links.forEach((link, index) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    gsap.to('.wheel', {
+      y: '-2rem'
+    })
+    tween.play()
+
+    flag = true
+    main.scrollTo({
+      top: index * window.innerHeight,
+      behavior: 'smooth'
+    })
+  })
+})
+
