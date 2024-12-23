@@ -1,13 +1,15 @@
 
 const key = document.querySelector('.key button')
 
-const tween = gsap.timeline({
+const keyTl = gsap.timeline({
   duration: 0.5,
   ease: 'power1.in',
   paused: true
 })
 
-tween
+keyTl.flag = false
+
+keyTl
   .to('header', {
     yPercent: -100,
     ease: 'none'
@@ -19,7 +21,7 @@ tween
   .to(['.left-side', '.right-side'], {
     opacity: 0
   })
-  .to('.key div', {
+  .to('.key .display', {
     scale: 6,
     opacity: 0,
   }, '<')
@@ -30,44 +32,34 @@ tween
     opacity: 1,
     onComplete: () => {
       document.querySelector('#corner').classList.toggle('running')
+      document.querySelector('aside').style.pointerEvents = 'none'
     },
     onReverseComplete: () => {
       document.querySelector('#corner').classList.toggle('running')
     }
   }, '<')
 
-let flag = false
-
 key.addEventListener('click', () => {
+  const flag = keyTl.flag
+
   if (!flag) {
     gsap.to('.wheel', {
       y: '-2rem',
     },)
-    tween.play()
-    flag = true
+    keyTl.play()
   } else {
     gsap.to('.wheel', {
       y: 0,
     },)
-    tween.reverse()
-    flag = false
+    keyTl.reverse()
   }
 
-  document.querySelector('aside').style.pointerEvents = 'none'
+  keyTl.flag = !flag
 })
 
-key.addEventListener('mouseenter', () => {
-  flag && gsap.to('.wheel', {
-    y: '-4rem'
-  })
-})
+key.addEventListener('mouseenter', () => keyTl.flag && gsap.to('.wheel', { y: '-4rem' }))
 
-key.addEventListener('mouseleave', () => {
-
-  flag && gsap.to('.wheel', {
-    y: '-2rem'
-  })
-})
+key.addEventListener('mouseleave', () => keyTl.flag && gsap.to('.wheel', { y: '-2rem' }))
 
 
 
@@ -1168,12 +1160,14 @@ const links = Array.from(document.querySelectorAll('header nav a'))
 links.forEach((link, index) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
+
     gsap.to('.wheel', {
       y: '-2rem'
     })
-    tween.play()
 
-    flag = true
+    keyTl.play()
+    keyTl.flag = true
+
     main.scrollTo({
       top: index * window.innerHeight,
       behavior: 'smooth'
