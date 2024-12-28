@@ -26,7 +26,7 @@ keyTl
     opacity: 0,
   }, '<')
   .to('.key button', {
-    y: '15rem'
+    y: '16rem'
   }, '<')
   .to('.decoration', {
     opacity: 1,
@@ -413,18 +413,21 @@ watchButton.addEventListener('click', () => {
 
 const cursor = document.querySelector('.cursor')
 const panel = document.querySelector('.shell')
+const title = panel.querySelector('h3')
 
 const boxes = Array.from(panel.querySelectorAll('.box'))
 
 boxes.forEach((box) => {
   box.addEventListener('mouseenter', () => {
-    gsap.to('#fanart', {
+    title.textContent = box.dataset.caption
+    gsap.to('main', {
       backgroundColor: box.dataset.color,
     })
   })
 
   box.addEventListener('mouseleave', () => {
-    gsap.to('#fanart', {
+    title.textContent = ''
+    gsap.to('main', {
       backgroundColor: '#eee',
     })
   })
@@ -1175,3 +1178,7 @@ links.forEach((link, index) => {
   })
 })
 
+// TODO: 新的文字浮现特效
+// TODO: 响应式设计
+// TODO: episodes page 剧集简介
+// TODO: 添加动画音效

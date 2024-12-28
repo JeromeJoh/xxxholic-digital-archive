@@ -1059,6 +1059,20 @@ body {
             }
           }
 
+          h3 {
+            position: absolute;
+            top: 0;
+            transform: translateY(-300%);
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.6rem;
+            font-family: 'Forum', sans-serif;
+            // mix-blend-mode: overlay;
+            color: white;
+            letter-spacing: 1px;
+          }
+
           .cursor {
             position: absolute;
             top: 50%;
@@ -1090,7 +1104,7 @@ body {
             transition: all 0.5s;
 
             & > img {
-              width: 200%;
+              width: 150%;
               height: 100%;
               object-fit: cover;
               transition: 0.5s;
@@ -1101,14 +1115,36 @@ body {
 
               & > img {
                 width: 100%;
-                height: 100%;
               }
             }
           }
+        }
 
-          img {
-            width: 60%;
-            margin: auto;
+        .decor {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+
+          &-t,
+          &-b {
+            position: absolute;
+            left: 0;
+            height: 1rem;
+            width: 100%;
+            background-image: url(/assets/svg/side-decor.svg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            // @include blatantBorder;
+          }
+
+          &-t {
+            top: 2px;
+          }
+
+          &-b {
+            bottom: 2px;
+            transform: rotateX(180deg);
           }
         }
       }
@@ -1119,11 +1155,22 @@ body {
         z-index: 1;
         display: flex;
         gap: 1px;
+        --border-edge: 4px;
 
         .activate {
           @include attentionSeeker(var(--color-black));
           @include positionCenter;
           z-index: 1000;
+        }
+
+        &-l {
+          border-width: var(--border-edge) var(--border-edge) var(--border-edge)
+            0;
+        }
+
+        &-r {
+          border-width: var(--border-edge) 0 var(--border-edge)
+            var(--border-edge);
         }
 
         &-l,
@@ -1135,7 +1182,9 @@ body {
           z-index: 80;
           flex: 1;
           height: 100%;
-          background-color: rgba(#d5ccc5, 0.95);
+          background-color: rgba(#eee, 0.95);
+          border-style: solid;
+          border-color: var(--color-black);
         }
 
         &-l::before,
@@ -1355,8 +1404,8 @@ body {
     fill: none;
     stroke: currentColor;
     stroke-width: 50;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    // stroke-linecap: round;
+    // stroke-linejoin: round;
     paint-order: markers fill stroke;
     stroke-dasharray: 2500;
     stroke-dashoffset: 2500;
