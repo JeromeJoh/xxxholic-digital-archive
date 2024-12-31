@@ -106,16 +106,13 @@ document.querySelector('.next').addEventListener('click', () => {
   if (audios[lineIndex]) {
     audios[lineIndex].play()
     gsap.to('.c-' + (characterIndex + 1), {
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      delay: 1
     })
     characterIndex++
   }
 
   if (lineIndex === 0) {
-
-    gsap.to('.next', {
-      opacity: 0.5
-    })
 
     gsap.to('.decor-l', {
       left: 0
@@ -127,6 +124,22 @@ document.querySelector('.next').addEventListener('click', () => {
 
     gsap.to(paragraphs[lineIndex++], {
       opacity: 1
+    })
+
+    gsap.to('.curtain-l .bar', {
+      opacity: 0,
+      x: -30,
+      y: -10,
+      stagger: 0.05,
+      ease: 'power4.inOut'
+    })
+
+    gsap.to('.curtain-r .bar', {
+      opacity: 0,
+      x: -30,
+      y: -10,
+      stagger: 0.05,
+      ease: 'power4.inOut'
     })
 
     return
@@ -209,6 +222,10 @@ reelTween
   }, '>')
 
 document.querySelector('#characters .activate').addEventListener('click', () => {
+  gsap.to('#characters .curtain .circle', {
+    scale: 0,
+    stagger: 0.05
+  })
   reelTween.play()
 })
 
@@ -230,7 +247,7 @@ barTween
   }, '<')
   .to(buttonGroup, {
     opacity: 0
-  })
+  }, '<')
 
 buttonGroup.forEach((button, index) => {
   button.addEventListener('click', () => {
