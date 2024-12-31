@@ -50,43 +50,6 @@ button {
     animation: ripple 2s ease-in-out infinite;
     opacity: 0;
   }
-}
-
-.tip-button {
-  width: 3rem;
-  aspect-ratio: 1;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  pointer-events: auto;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 10rem;
-    height: 10rem;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: solid 4px var(--color-black);
-    animation: ripple 2s 1.5s ease-in-out infinite;
-    opacity: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 8rem;
-    height: 8rem;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: solid 4px var(--color-black);
-    animation: ripple 2s 0s ease-in-out infinite;
-    opacity: 0;
-  }
 
   @keyframes ripple {
     0% {
@@ -582,6 +545,7 @@ body {
           user-select: none;
 
           .next {
+            @include attentionSeeker(var(--color-black));
             @include positionCenter;
           }
 
@@ -731,6 +695,7 @@ body {
         }
 
         .activate {
+          @include attentionSeeker(var(--color-black));
           @include positionCenter;
         }
 
@@ -744,32 +709,7 @@ body {
             position: absolute;
             top: var(--y);
             left: var(--x);
-
-            &::before {
-              content: '';
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 10rem;
-              height: 10rem;
-              transform: translate(-50%, -50%);
-              border-radius: 50%;
-              border: solid 4px var(--color-black);
-              animation: ripple 2s 1.5s ease-in-out infinite;
-            }
-
-            &::after {
-              content: '';
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 8rem;
-              height: 8rem;
-              transform: translate(-50%, -50%);
-              border-radius: 50%;
-              border: solid 4px var(--color-black);
-              animation: ripple 2s 0s ease-in-out infinite;
-            }
+            @include attentionSeeker(var(--color-black));
           }
         }
 
@@ -874,6 +814,7 @@ body {
 
         .activate {
           @include positionCenter;
+          @include attentionSeeker(var(--color-black));
           z-index: 100;
         }
 
@@ -1268,6 +1209,7 @@ body {
             background-image: url(/assets/images/crane.jpg);
             background-size: 100% 100%;
             pointer-events: none;
+            border-radius: 2px;
           }
 
           .activate {

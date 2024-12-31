@@ -202,7 +202,10 @@ reelTween
     duration: 1,
   }, '<')
   .to('.pointer-group', {
-    opacity: 1
+    opacity: 1,
+    onComplete: () => {
+      document.querySelector('.pointer-group').style.pointerEvents = 'auto'
+    }
   }, '>')
 
 document.querySelector('#characters .activate').addEventListener('click', () => {
