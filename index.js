@@ -321,8 +321,13 @@ let currentEpisode = 0
 document.querySelector('#episodes .activate').addEventListener('click', () => {
   document.querySelector('.deck svg').classList.add('running')
 
+  gsap.to('#episodes .fan .bar', {
+    rotate: 0,
+    opacity: 0,
+  })
+
   gsap.to('#episodes .activate', {
-    opacity: 0
+    opacity: 0,
   })
 
   gsap.to(prevEpisode, {

@@ -831,24 +831,17 @@ body {
         inset: 0;
         overflow: hidden;
         pointer-events: none;
-        display: flex;
-        flex-direction: column;
         z-index: -1;
 
-        &-t,
-        &-b {
-          flex: 1;
-
-          .circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: var(--radius);
-            height: var(--radius);
-            border-radius: 50%;
-            background: radial-gradient(rgba(#0d0d0d, 0.3), transparent);
-          }
+        .circle {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: var(--radius);
+          height: var(--radius);
+          border-radius: 50%;
+          background: radial-gradient(rgba(#0d0d0d, 0.3), transparent);
         }
       }
     }
@@ -1023,6 +1016,39 @@ body {
           }
         }
       }
+
+      .fan {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        .bar {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) rotate(var(--angle));
+          transform-origin: center 92%;
+          width: 2rem;
+          height: 25vw;
+          border-radius: 2px;
+          background: linear-gradient(
+            to top,
+            rgba(#0d0d0d, 0.5),
+            rgba(#0d0d0d, 0.4) 55%,
+            rgba(#0d0d0d, 0.3)
+          );
+          clip-path: polygon(
+            0 0,
+            100% 0,
+            90% 45%,
+            75% 45%,
+            56% 100%,
+            44% 100%,
+            25% 45%,
+            10% 45%
+          );
+        }
+      }
     }
 
     & > section:nth-child(4) {
@@ -1089,7 +1115,7 @@ body {
             overflow: hidden;
             transition: 0.5s;
             border-radius: 2px;
-            border: 1px solid var(--bg-color);
+            border: 1px solid var(--color-black);
             cursor: pointer;
             transition: all 0.5s;
 
@@ -1172,7 +1198,7 @@ body {
           z-index: 80;
           flex: 1;
           height: 100%;
-          background-color: rgba(#eee, 0.95);
+          background-color: rgba(#eee, 0.9);
           border-style: solid;
           border-color: var(--color-black);
         }
