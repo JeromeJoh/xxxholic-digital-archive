@@ -587,7 +587,7 @@ function movePiece(event) {
       })
 
       gsap.to("#game .hint-button", {
-        yPercent: 0
+        yPercent: -10
       })
 
       gsap.to("#game .hint-image", {
@@ -598,10 +598,6 @@ function movePiece(event) {
         xPercent: 100,
         opacity: 0,
         stagger: 0.05
-      })
-
-      gsap.to("#game .puzzle-result", {
-        yPercent: -120
       })
 
       pieceArray.forEach(piece => {
@@ -631,11 +627,38 @@ const initBoard = () => {
 initBoard()
 
 
+const timer = {
+  id: null,
+  minutes: 0,
+  seconds: 0,
+  minutesDom: document.getElementById('minutes'),
+  secondsDom: document.getElementById('seconds'),
 
+  start() {
+    this.id = setInterval(() => {
+      this.seconds++;
+      if (this.seconds === 60) {
+        this.minutes++;
+        this.seconds = 0;
+      }
+      this.minutesDom.textContent = this.minutes.toString().padStart(2, '0');
+      this.secondsDom.textContent = this.seconds.toString().padStart(2, '0');
+    }, 1000);
+  },
+  reset() {
+    clearInterval(this.id);
+    this.minutes = 0;
+    this.seconds = 0;
+    this.minutesDom.textContent = '00';
+    this.seconds.textContent = '00';
+  }
+}
 
 
 
 document.querySelector('#game .activate').addEventListener('click', () => {
+  timer.start()
+
   gsap.to('#game .activate', {
     opacity: 0,
     onComplete: () => {
@@ -649,6 +672,10 @@ document.querySelector('#game .activate').addEventListener('click', () => {
 
   gsap.to('#game .hint-button', {
     yPercent: -120
+  })
+
+  gsap.to("#game .timer", {
+    yPercent: 120
   })
 })
 
