@@ -4,10 +4,12 @@ const key = document.querySelector('.key button')
 const keyTl = gsap.timeline({
   duration: 0.5,
   ease: 'power1.in',
-  paused: true
-})
+  paused: true,
 
-keyTl.flag = false
+  data: {
+    flag: false
+  }
+})
 
 keyTl
   .to('header', {
@@ -40,7 +42,7 @@ keyTl
   }, '<')
 
 key.addEventListener('click', () => {
-  const flag = keyTl.flag
+  const flag = keyTl.vars.data.flag
 
   if (!flag) {
     gsap.to('.wheel', {
@@ -54,12 +56,12 @@ key.addEventListener('click', () => {
     keyTl.reverse()
   }
 
-  keyTl.flag = !flag
+  keyTl.vars.data.flag = !flag
 })
 
-key.addEventListener('mouseenter', () => keyTl.flag && gsap.to('.wheel', { y: '-4rem' }))
+key.addEventListener('mouseenter', () => keyTl.vars.data.flag && gsap.to('.wheel', { y: '-4rem' }))
 
-key.addEventListener('mouseleave', () => keyTl.flag && gsap.to('.wheel', { y: '-2rem' }))
+key.addEventListener('mouseleave', () => keyTl.vars.data.flag && gsap.to('.wheel', { y: '-2rem' }))
 
 
 
@@ -501,6 +503,8 @@ const image = document.querySelector('#game .hint-image')
 const board = document.querySelector('#game .board')
 const rows = 3
 const cols = 3
+const pieceWidth = board.offsetWidth / cols
+const pieceHeight = board.offsetHeight / rows
 const emptyPos = {
   row: rows - 1,
   col: cols - 1
@@ -508,39 +512,12 @@ const emptyPos = {
 const pieceArray = []
 
 function createPuzzle() {
-  const pieceWidth = board.offsetWidth / cols
-  const pieceHeight = board.offsetHeight / rows
-
-  function generateRandomOrderArray(length) {
-    const arr = Array.from({ length }, (_, i) => i);
-
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-
-    return arr;
-  }
-
-  let randomArray = generateRandomOrderArray(rows * cols - 1)
-  randomArray = [7, 6, 2, 0, 5, 1, 3, 4]
-
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const piece = document.createElement('div')
-
-      const randomIndex = randomArray.shift()
-      const randomPos = {
-        row: Math.floor(randomIndex / cols),
-        col: randomIndex % cols
-      }
-
       if (i === rows - 1 && j === cols - 1) {
-        randomPos.row = rows - 1
-        randomPos.col = cols - 1
-        piece.classList.add('lastone')
+        piece.classList.toggle('lastone')
       }
-
       piece.classList.add('piece')
       piece.style.width = pieceWidth + 'px'
       piece.style.height = pieceHeight + 'px'
@@ -549,17 +526,41 @@ function createPuzzle() {
       piece.style.backgroundPosition = `-${j * pieceWidth}px -${i * pieceHeight}px`
       piece.dataset.row = i
       piece.dataset.col = j
-      piece.dataset.viewRow = randomPos.row
-      piece.dataset.viewCol = randomPos.col
-      piece.style.left = randomPos.col * pieceWidth + 'px'
-      piece.style.top = randomPos.row * pieceHeight + 'px'
       piece.addEventListener('click', movePiece, false)
       pieceArray.push(piece)
     }
   }
+}
+
+function shuffle() {
+  const randomArray = [7, 6, 2, 0, 5, 1, 3, 4]
+
+  pieceArray.forEach((piece, index) => {
+    const randomIndex = randomArray.shift()
+    const randomPos = {
+      row: Math.floor(randomIndex / cols),
+      col: randomIndex % cols
+    }
+
+    if (index === rows * cols - 1) {
+      randomPos.row = rows - 1
+      randomPos.col = cols - 1
+    }
+
+    piece.dataset.viewRow = randomPos.row
+    piece.dataset.viewCol = randomPos.col
+    piece.style.left = randomPos.col * pieceWidth + 'px'
+    piece.style.top = randomPos.row * pieceHeight + 'px'
+  })
 
   board.append(...pieceArray)
 }
+
+const restartTween = gsap.to("#game .restart", {
+  xPercent: 150,
+  rotate: 360,
+  paused: true,
+})
 
 function movePiece(event) {
   if (isCompleted()) return
@@ -582,17 +583,10 @@ function movePiece(event) {
     emptyPos.col = col
 
     if (isCompleted()) {
-      gsap.to("#game .lastone", {
-        opacity: 1,
-      })
+      gameTl.reverse()
+      restartTween.play()
 
-      gsap.to("#game .hint-button", {
-        yPercent: -10
-      })
-
-      gsap.to("#game .hint-image", {
-        opacity: 1
-      })
+      pieceArray[pieceArray.length - 1].classList.toggle('lastone')
 
       gsap.from("#game .bar", {
         xPercent: 100,
@@ -622,6 +616,15 @@ function isCompleted() {
 
 const initBoard = () => {
   createPuzzle()
+  shuffle()
+}
+
+const resetBoard = () => {
+  pieceArray.forEach(piece => piece.remove())
+  pieceArray.length = 0
+  emptyPos.row = rows - 1
+  emptyPos.col = cols - 1
+  initBoard()
 }
 
 initBoard()
@@ -636,24 +639,41 @@ const timer = {
 
   start() {
     this.id = setInterval(() => {
-      this.seconds++;
+      this.seconds++
       if (this.seconds === 60) {
-        this.minutes++;
-        this.seconds = 0;
+        this.minutes++
+        this.seconds = 0
       }
-      this.minutesDom.textContent = this.minutes.toString().padStart(2, '0');
-      this.secondsDom.textContent = this.seconds.toString().padStart(2, '0');
-    }, 1000);
+      this.minutesDom.textContent = this.minutes.toString().padStart(2, '0')
+      this.secondsDom.textContent = this.seconds.toString().padStart(2, '0')
+    }, 1000)
   },
+
   reset() {
-    clearInterval(this.id);
-    this.minutes = 0;
-    this.seconds = 0;
-    this.minutesDom.textContent = '00';
-    this.seconds.textContent = '00';
+    clearInterval(this.id)
+    this.minutes = 0
+    this.seconds = 0
+    this.minutesDom.textContent = '00'
+    this.secondsDom.textContent = '00'
+    this.start()
   }
 }
 
+const gameTl = gsap.timeline({
+  paused: true,
+  ease: 'power1.inOut',
+})
+
+gameTl
+  .to('#game .hint-image', {
+    opacity: 0,
+  })
+  .to('#game .hint-button', {
+    yPercent: -120
+  }, '<')
+  .to("#game .timer", {
+    yPercent: 120
+  }, '<')
 
 
 document.querySelector('#game .activate').addEventListener('click', () => {
@@ -666,17 +686,7 @@ document.querySelector('#game .activate').addEventListener('click', () => {
     }
   })
 
-  gsap.to('#game .hint-image', {
-    opacity: 0,
-  })
-
-  gsap.to('#game .hint-button', {
-    yPercent: -120
-  })
-
-  gsap.to("#game .timer", {
-    yPercent: 120
-  })
+  gameTl.play()
 })
 
 const hintButton = document.querySelector('#game .hint-button')
@@ -691,6 +701,13 @@ hintButton.addEventListener('mouseup', () => {
   gsap.to('#game .hint-image', {
     opacity: 0,
   })
+})
+
+document.querySelector('#game .restart').addEventListener('click', () => {
+  resetBoard()
+  timer.reset()
+  gameTl.play()
+  restartTween.reverse()
 })
 
 
@@ -1221,7 +1238,7 @@ links.forEach((link, index) => {
     })
 
     keyTl.play()
-    keyTl.flag = true
+    keyTl.vars.data.flag = true
 
     main.scrollTo({
       top: index * window.innerHeight,

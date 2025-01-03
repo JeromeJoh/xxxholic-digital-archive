@@ -1331,6 +1331,20 @@ body {
             border-radius: 2px;
           }
 
+          .restart {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            transform: translate(0%, -50%);
+            background-image: url(/assets/svg/reset.svg);
+            background-size: contain;
+            cursor: pointer;
+            background-position: center;
+            transition: all 0.15s;
+          }
+
           .activate {
             @include positionCenter;
             @include attentionSeeker(white);
