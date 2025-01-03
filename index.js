@@ -131,7 +131,7 @@ document.querySelector('.next').addEventListener('click', () => {
     gsap.to('.curtain-l .bar', {
       opacity: 0,
       x: -30,
-      y: -10,
+      skewX: -10,
       stagger: 0.05,
       ease: 'power4.inOut'
     })
@@ -139,7 +139,7 @@ document.querySelector('.next').addEventListener('click', () => {
     gsap.to('.curtain-r .bar', {
       opacity: 0,
       x: -30,
-      y: -10,
+      skewX: -10,
       stagger: 0.05,
       ease: 'power4.inOut'
     })
@@ -1249,5 +1249,4 @@ links.forEach((link, index) => {
 
 // TODO: 新的文字浮现特效
 // TODO: 响应式设计
-// TODO: episodes page 剧集简介
 // TODO: 添加动画音效
