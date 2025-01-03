@@ -580,7 +580,6 @@ body {
         overflow: hidden;
         pointer-events: none;
         display: flex;
-        // z-index: -1;
 
         &-l,
         &-r {
@@ -627,6 +626,7 @@ body {
         aspect-ratio: 2054 / 1038;
         display: grid;
         place-items: center;
+        z-index: 10;
 
         --picture-width: 2054px;
         --picture-height: 1038px;
@@ -831,7 +831,6 @@ body {
         inset: 0;
         overflow: hidden;
         pointer-events: none;
-        z-index: -1;
 
         .circle {
           position: absolute;

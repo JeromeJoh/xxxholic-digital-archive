@@ -484,6 +484,7 @@ document.querySelector('#fanart .activate').addEventListener('click', () => {
 
   gsap.to('#fanart .door-r', {
     x: '100%',
+    ease: 'power1.out'
   })
 
   gsap.to('#fanart .activate', {
