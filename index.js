@@ -256,6 +256,13 @@ buttonGroup.forEach((button, index) => {
     barTween.play()
     characterName.textContent = characters[index].name
     brief.textContent = characters[index].brief
+
+    const lines = new SplitType(brief).lines
+    gsap.from(lines, {
+      y: 3,
+      opacity: 0,
+      stagger: 0.02
+    })
   })
 })
 
@@ -1248,6 +1255,5 @@ links.forEach((link, index) => {
   })
 })
 
-// TODO: 新的文字浮现特效
 // TODO: 响应式设计
 // TODO: 添加动画音效
